@@ -67,13 +67,27 @@ public class Reader {
                 nonSortedMap.put(abbreviationsMap.get(key), calculateMap.get(key));
             }
         }
-
-        Map<String, String> sortedMap = nonSortedMap.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors
-                .toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        Map<String, String> sortedMap = nonSortedMap.entrySet().stream().sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new));
         int i = 1;
+        int j = 1;
         for (Entry<String, String> map : sortedMap.entrySet()) {
-            System.out.println(i + ". " + map.getKey() + " | " + map.getValue());
+
+            if (i <= 15) {
+                System.out.println(i + ". " + map.getKey() + " | " + map.getValue());
+            }
             i++;
+        }
+        System.out.println("----------------------------------------------------------------");
+        int r = 1;
+        for (Entry<String, String> map : sortedMap.entrySet()) {
+
+            if (j > 15) {
+                System.out.println(r + ". " + map.getKey() + " | " + map.getValue());
+            }
+            r++;
+            j++;
         }
     }
 
