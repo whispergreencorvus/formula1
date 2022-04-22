@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class Reader {
-
-    Map<String, Map<String, String>> abbreviationsMap = new LinkedHashMap<>();
+    Map<String, String> abbreviationsMap = new LinkedHashMap<>();
     Map<String, String> startMap = new HashMap<>();
     Map<String, String> endMap = new HashMap<>();
     Map<String, String> calculateMap = new HashMap<>();
@@ -32,23 +32,13 @@ public class Reader {
         Scanner scannerStartLog = new Scanner(startLog);
         File abbreviations = new File("/home/user/java/GitLab/Task 6/task-6/abbreviations.txt");
         Scanner scannerAbbreviations = new Scanner(abbreviations);
-        System.out.println("---------nameMap---------");
         while (scannerAbbreviations.hasNextLine()) {
-            Map<String, String> nameMap = new HashMap<>();
             String lineFromAbbreviations = scannerAbbreviations.nextLine();
             String[] parts = lineFromAbbreviations.split("_");
             abbrev = parts[0];
             name = parts[1];
             car = parts[2];
-            putValueToCache(abbrev, nameMap);
-            nameMap.put(name, car);
-            for (Entry<String, String> map : nameMap.entrySet()) {
-                System.out.println(map.getKey() + " | " + map.getValue());
-            }
-        }
-        System.out.println("---------abbreviationsMap---------");
-        for (Entry<String, Map<String, String>> map : abbreviationsMap.entrySet()) {
-            System.out.println(map.getKey() + " | " + map.getValue());
+            putValueToMap(abbrev, name + " | " + car);
         }
         scannerAbbreviations.close();
         while (scannerStartLog.hasNextLine()) {
@@ -71,11 +61,23 @@ public class Reader {
                 calculateMap.put(key, formatDuration(durationTime));
             }
         }
-        System.out.println("---------calculateMap.sorted---------");
-        calculateMap.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(System.out::println);
+        Map<String, String> nonSortedMap = new LinkedHashMap<String, String>();
+        for (String key : abbreviationsMap.keySet()) {
+            if (calculateMap.keySet().contains(key)) {
+                nonSortedMap.put(abbreviationsMap.get(key), calculateMap.get(key));
+            }
+        }
+
+        Map<String, String> sortedMap = nonSortedMap.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors
+                .toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        int i = 1;
+        for (Entry<String, String> map : sortedMap.entrySet()) {
+            System.out.println(i + ". " + map.getKey() + " | " + map.getValue());
+            i++;
+        }
     }
 
-    public void putValueToCache(String key, Map<String, String> value) {
+    public void putValueToMap(String key, String value) {
         abbreviationsMap.put(key, value);
     }
 
