@@ -6,7 +6,9 @@ import java.text.ParseException;
 public class Main {
 
     public static void main(String[] args) throws IOException, ParseException {
-        Reader reader = new Reader();
-        reader.readerFile();
+        Enumenator enumenator = new Enumenator();
+        Printer printer = new Printer();
+        Reader r = new Reader(enumenator, printer);
+        System.out.println(r.enter());
     }
 }
