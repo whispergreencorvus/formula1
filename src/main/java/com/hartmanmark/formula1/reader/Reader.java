@@ -1,4 +1,4 @@
-package com.hartmanmark.formula1;
+package com.hartmanmark.formula1.reader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,6 +11,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
+import com.hartmanmark.formula1.exception.ParseExceptionInEndMap;
+import com.hartmanmark.formula1.exception.ParseExceptionInStartMap;
+import com.hartmanmark.formula1.printer.Printer;
+import com.hartmanmark.formula1.service.Calculator;
+import com.hartmanmark.formula1.service.Racer;
+
 public class Reader {
 
     private Map<String, String> startMap = new HashMap<>();
@@ -21,25 +27,26 @@ public class Reader {
     private File pathToAbbreviations;
     private String name;
     private String car;
-    private String abbrev;
+    private String abbreviation;
     private FileReader fileReader;
     private Properties properties;
-    private Enumenator enumenator;
+    private Calculator calculator;
     private Printer printer;
+    private String pathToProperties = "resources/path.properties";
 
-    public Reader(Enumenator enumenator, Printer printer) {
-        this.enumenator = enumenator;
+    public Reader(Calculator calculator, Printer printer) {
+        this.calculator = calculator;
         this.printer = printer;
     }
 
-    public String enter() throws IOException, ParseException {
-        setFileReader(new FileReader("resources/path.properties"));
+    public String read() throws IOException, ParseException, ParseExceptionInEndMap, ParseExceptionInStartMap {
+        setFileReader(new FileReader(pathToProperties));
         setProperties(new Properties());
         getProperties().load(getFileReader());
         readEndLog();
         readStartLog();
         readAbbreviationsMap();
-        return printer.printer(enumenator.calculateTime(getStartMap(), getEndMap()), abbreviationsMap);
+        return printer.printer(calculator.calculateTime(getStartMap(), getEndMap()), abbreviationsMap);
     }
 
     private void readStartLog() throws IOException {
@@ -81,14 +88,15 @@ public class Reader {
     }
 
     private void parseAbbreviations() throws FileNotFoundException {
+        Racer racer = new Racer(name, car, abbreviation);
         Scanner scannerAbbreviations = new Scanner(getPathToAbbreviations());
         while (scannerAbbreviations.hasNextLine()) {
             String lineFromAbbreviations = scannerAbbreviations.nextLine();
             String[] parts = lineFromAbbreviations.split("_");
-            abbrev = parts[0];
-            name = parts[1];
-            car = parts[2];
-            abbreviationsMap.put(abbrev, name + " | " + car);
+            racer.setAbbreviation(parts[0]);
+            racer.setName(parts[1]);
+            racer.setCar(parts[2]);
+            abbreviationsMap.put(racer.getAbbreviation(), racer.getName() + " | " + racer.getCar());
         }
         scannerAbbreviations.close();
         setAbbreviationsMap(abbreviationsMap);

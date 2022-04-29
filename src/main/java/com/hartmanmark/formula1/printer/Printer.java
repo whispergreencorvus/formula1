@@ -1,4 +1,4 @@
-package com.hartmanmark.formula1;
+package com.hartmanmark.formula1.printer;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -20,7 +20,7 @@ public class Printer {
         sortedMap.forEach((key, value) -> {
             counter.incrementAndGet();
             if (counter.intValue() == TOP_RASERS) {
-                result.append("-----------------------------------------------------\n");
+                result.append(String.format("%62s", "").replace(' ', '-') + "\n");
             }
             result.append(counter + ". " + key.toString() + " | " + value.toString() + "\n");
         });
