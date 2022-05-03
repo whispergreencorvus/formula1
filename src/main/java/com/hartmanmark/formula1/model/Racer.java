@@ -1,4 +1,4 @@
-package com.hartmanmark.formula1.service;
+package com.hartmanmark.formula1.model;
 
 public class Racer {
 

@@ -13,7 +13,7 @@ public class Printer {
     private Map<String, String> sortedMap = new HashMap<String, String>();
     private StringBuffer result = new StringBuffer();
 
-    public String printer(Map<String, String> calculateMap, Map<String, String> abbreviationsMap) {
+    public String print(Map<String, String> calculateMap, Map<String, String> abbreviationsMap) {
         attach(calculateMap, abbreviationsMap);
         sortRasers();
         final AtomicInteger counter = new AtomicInteger();
