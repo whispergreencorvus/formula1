@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 import com.hartmanmark.formula1.model.Racer;
 
 public class Parcer {
@@ -44,10 +45,10 @@ public class Parcer {
         Scanner scannerAbbreviations = new Scanner(pathToAbbreviations);
         while (scannerAbbreviations.hasNextLine()) {
             String lineFromAbbreviations = scannerAbbreviations.nextLine();
-            List<String> l = Arrays.asList(lineFromAbbreviations.split("_"));
-            racer.setAbbreviation(l.get(0));
-            racer.setName(l.get(1));
-            racer.setCar(l.get(2));
+            List<String> list = Arrays.asList(lineFromAbbreviations.split("_"));
+            racer.setAbbreviation(list.get(0));
+            racer.setName(list.get(1));
+            racer.setCar(list.get(2));
             abbreviationsMap.put(racer.getAbbreviation(), racer.getName() + " | " + racer.getCar());
         }
         scannerAbbreviations.close();

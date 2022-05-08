@@ -21,12 +21,14 @@ public class Calculator {
                 try {
                     timeFromEndMap = sdf.parse(endMap.get(key));
                 } catch (Exception e) {
-                    System.out.println("Exception caught in EndtMap");
+                    throw new IllegalArgumentException(
+                            "Format of chosen time (should be HH:mm:ss.SSS) is invalid: " + endMap.get(key));
                 }
                 try {
                     timeFromStartMap = sdf.parse(startMap.get(key));
                 } catch (Exception e) {
-                    System.out.println("Exception caught in startMap");
+                    throw new IllegalArgumentException(
+                            "Format of chosen time (should be HH:mm:ss.SSS) is invalid: " + startMap.get(key));
                 }
                 long durationTime = timeFromEndMap.getTime() - timeFromStartMap.getTime();
                 calculateMap.put(key, formatDuration(durationTime));
