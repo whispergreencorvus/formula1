@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import com.hartmanmark.formula1.printer.Printer;
 import com.hartmanmark.formula1.service.Calculator;
-import com.hartmanmark.formula1.service.Parcer;
+import com.hartmanmark.formula1.service.Parser;
 
 public class Reader {
 
@@ -19,10 +19,10 @@ public class Reader {
     private Properties properties;
     private Calculator calculator;
     private Printer printer;
-    private Parcer parcer;
+    private Parser parcer;
     private String pathToProperties = "resources/path.properties";
 
-    public Reader(Calculator calculator, Printer printer, Parcer parcer) {
+    public Reader(Calculator calculator, Printer printer, Parser parcer) {
         this.calculator = calculator;
         this.printer = printer;
         this.parcer = parcer;

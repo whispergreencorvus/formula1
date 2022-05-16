@@ -1,41 +1,21 @@
 package com.hatrmanmark.formula1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.hartmanmark.formula1.service.Parcer;
+import com.hartmanmark.formula1.service.Parser;
 
-class ParcerTest {
+class ParserTest {
 
-    private Parcer parcer;
-
-    @BeforeEach
-    void init() {
-        parcer = new Parcer();
-    }
-
-    @Test
-    void testParseStartLog_sholdReturnFileNotFoundException_whenInputPathToFileIsWrong() throws IOException {
-        try {
-            String pathToProperties = "wrong/path/to/file";
-            FileReader fileReader = new FileReader(pathToProperties);
-            Properties properties = new Properties();
-            properties.load(fileReader);
-            File startLog = new File(properties.getProperty("startLog"));
-            parcer.parseStartLog(startLog);
-        } catch (FileNotFoundException e) {
-            assertEquals("wrong/path/to/file (No such file or directory)", e.getMessage());
-        }
-    }
+    private Parser parcer = new Parser();
 
     @Test
     void testParseStartLog_sholdReturnNullPointerException_whenInputKeyInPropertiesIsWrong() throws IOException {
@@ -139,5 +119,35 @@ class ParcerTest {
         properties.load(fileReader);
         File abbreviations = new File(properties.getProperty("abbreviations"));
         assertEquals(expectedMap, parcer.parseAbbreviations(abbreviations));
+    }
+
+    @Test
+    void test1ParseAbbreviations_shouldReturnIllegalArgumentException_whenInputFileContainsWrongAbbreviationsFormat() throws IOException {
+        File abbreviationsTest = new File("/home/user/java/GitLab/Task 6/task-6/abbreviationsTest.txt");
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            parcer.parseAbbreviations(abbreviationsTest);
+        });
+        assertEquals("The input abbreviations must be letters, 3 characters long, uppercase. For example: [ABC]",
+                exception.getMessage());
+    }
+
+    @Test
+    void testParseDate_shouldReturnIllegalArgumentException_whenInputFileContainsWrongDateFormat() throws IOException {
+        File startTest = new File("/home/user/java/GitLab/Task 6/task-6/startTest.log");
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            parcer.parseStartLog(startTest);
+        });
+        assertEquals("The format of input date must be [yyyy-MM-dd]. For example: [2018-05-24]",
+                exception.getMessage());
+    }
+
+    @Test
+    void testParseTime_shouldReturnIllegalArgumentException_whenInputFileContainsWrongTimeFormat() throws IOException {
+        File endTest = new File("/home/user/java/GitLab/Task 6/task-6/endTest.log");
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            parcer.parseEndLog(endTest);
+        });
+        assertEquals("The format of input time must be [HH:MM:SS.mmm]. For example: [12:02:58.917]",
+                exception.getMessage());
     }
 }

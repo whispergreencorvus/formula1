@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import com.hartmanmark.formula1.printer.Printer;
 import com.hartmanmark.formula1.reader.Reader;
 import com.hartmanmark.formula1.service.Calculator;
-import com.hartmanmark.formula1.service.Parcer;
+import com.hartmanmark.formula1.service.Parser;
 
 class ReaderTest {
 
@@ -17,7 +17,7 @@ class ReaderTest {
     void testRead_sholdReturnListOfRacers_whenMethodInvoke() throws IOException, ParseException {
         Calculator calculator = new Calculator();
         Printer printer = new Printer();
-        Parcer parcer = new Parcer();
+        Parser parcer = new Parser();
         Reader reader = new Reader(calculator, printer, parcer);
         String result = reader.read();
         assertEquals("1. Daniel Ricciardo | RED BULL RACING TAG HEUER | 00:01:12.013\n"
