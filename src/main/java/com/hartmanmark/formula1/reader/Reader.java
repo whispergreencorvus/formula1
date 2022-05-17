@@ -20,7 +20,7 @@ public class Reader {
     private Calculator calculator;
     private Printer printer;
     private Parser parcer;
-    private String pathToProperties = "resources/path.properties";
+    private String pathToProperties = "/home/user/java/GitLab/Task 6/task-6/src/main/resources/path.properties";
 
     public Reader(Calculator calculator, Printer printer, Parser parcer) {
         this.calculator = calculator;

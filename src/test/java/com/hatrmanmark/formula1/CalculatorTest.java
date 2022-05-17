@@ -23,7 +23,7 @@ class CalculatorTest {
     @Test
     void calculateTime_shouldReturnSolutionOnCalculateTime_whenInputMapsContain_VBM_120105125__VBM_121513987()
             throws ParseException, IOException {
-        String pathToProperties = "resources/path.properties";
+        String pathToProperties = "/home/user/java/GitLab/Task 6/task-6/src/main/resources/path.properties";
         FileReader fileReader = new FileReader(pathToProperties);
         Properties properties = new Properties();
         properties.load(fileReader);

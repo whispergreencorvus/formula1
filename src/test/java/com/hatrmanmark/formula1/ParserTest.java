@@ -20,7 +20,7 @@ class ParserTest {
     @Test
     void testParseStartLog_sholdReturnNullPointerException_whenInputKeyInPropertiesIsWrong() throws IOException {
         try {
-            String pathToProperties = "resources/path.properties";
+            String pathToProperties = "/home/user/java/GitLab/Task 6/task-6/src/main/resources/path.properties";
             FileReader fileReader = new FileReader(pathToProperties);
             Properties properties = new Properties();
             properties.load(fileReader);
@@ -53,7 +53,7 @@ class ParserTest {
         expectedMap.put("EOF", "12:17:58.810");
         expectedMap.put("PGS", "12:07:23.645");
         expectedMap.put("KRF", "12:03:01.250");
-        String pathToProperties = "resources/path.properties";
+        String pathToProperties = "/home/user/java/GitLab/Task 6/task-6/src/main/resources/path.properties";
         FileReader fileReader = new FileReader(pathToProperties);
         Properties properties = new Properties();
         properties.load(fileReader);
@@ -83,7 +83,7 @@ class ParserTest {
         expectedMap.put("EOF", "12:19:11.838");
         expectedMap.put("PGS", "12:08:36.586");
         expectedMap.put("KRF", "12:04:13.889");
-        String pathToProperties = "resources/path.properties";
+        String pathToProperties = "/home/user/java/GitLab/Task 6/task-6/src/main/resources/path.properties";
         FileReader fileReader = new FileReader(pathToProperties);
         Properties properties = new Properties();
         properties.load(fileReader);
@@ -113,7 +113,7 @@ class ParserTest {
         expectedMap.put("EOF", "Esteban Ocon | FORCE INDIA MERCEDES");
         expectedMap.put("PGS", "Pierre Gasly | SCUDERIA TORO ROSSO HONDA");
         expectedMap.put("KRF", "Kimi Raikkonen | FERRARI");
-        String pathToProperties = "resources/path.properties";
+        String pathToProperties = "/home/user/java/GitLab/Task 6/task-6/src/main/resources/path.properties";
         FileReader fileReader = new FileReader(pathToProperties);
         Properties properties = new Properties();
         properties.load(fileReader);
@@ -123,7 +123,7 @@ class ParserTest {
 
     @Test
     void test1ParseAbbreviations_shouldReturnIllegalArgumentException_whenInputFileContainsWrongAbbreviationsFormat() throws IOException {
-        File abbreviationsTest = new File("/home/user/java/GitLab/Task 6/task-6/resourcesTest/abbreviationsError.txt");
+        File abbreviationsTest = new File("/home/user/java/GitLab/Task 6/task-6/src/test/resources/abbreviationsError.txt");
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             parcer.parseAbbreviations(abbreviationsTest);
         });
@@ -133,7 +133,7 @@ class ParserTest {
 
     @Test
     void testParseDate_shouldReturnIllegalArgumentException_whenInputFileContainsWrongDateFormat() throws IOException {
-        File startTest = new File("/home/user/java/GitLab/Task 6/task-6/resourcesTest/startError.log");
+        File startTest = new File("/home/user/java/GitLab/Task 6/task-6/src/test/resources/startError.log");
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             parcer.parseStartLog(startTest);
         });
@@ -143,7 +143,7 @@ class ParserTest {
 
     @Test
     void testParseTime_shouldReturnIllegalArgumentException_whenInputFileContainsWrongTimeFormat() throws IOException {
-        File endTest = new File("/home/user/java/GitLab/Task 6/task-6/resourcesTest/endError.log");
+        File endTest = new File("/home/user/java/GitLab/Task 6/task-6/src/test/resources/endError.log");
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             parcer.parseEndLog(endTest);
         });
