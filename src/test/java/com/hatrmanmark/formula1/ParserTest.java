@@ -57,7 +57,7 @@ class ParserTest {
         FileReader fileReader = new FileReader(pathToProperties);
         Properties properties = new Properties();
         properties.load(fileReader);
-        File startLog = new File(properties.getProperty("startLog"));
+        File startLog = new File(properties.getProperty("startTest"));
         assertEquals(expectedMap, parcer.parseStartLog(startLog));
     }
 
@@ -87,7 +87,7 @@ class ParserTest {
         FileReader fileReader = new FileReader(pathToProperties);
         Properties properties = new Properties();
         properties.load(fileReader);
-        File endLog = new File(properties.getProperty("endLog"));
+        File endLog = new File(properties.getProperty("endTest"));
         assertEquals(expectedMap, parcer.parseEndLog(endLog));
     }
 
@@ -117,13 +117,13 @@ class ParserTest {
         FileReader fileReader = new FileReader(pathToProperties);
         Properties properties = new Properties();
         properties.load(fileReader);
-        File abbreviations = new File(properties.getProperty("abbreviations"));
+        File abbreviations = new File(properties.getProperty("abbreviationsTest"));
         assertEquals(expectedMap, parcer.parseAbbreviations(abbreviations));
     }
 
     @Test
     void test1ParseAbbreviations_shouldReturnIllegalArgumentException_whenInputFileContainsWrongAbbreviationsFormat() throws IOException {
-        File abbreviationsTest = new File("/home/user/java/GitLab/Task 6/task-6/abbreviationsTest.txt");
+        File abbreviationsTest = new File("/home/user/java/GitLab/Task 6/task-6/resourcesTest/abbreviationsError.txt");
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             parcer.parseAbbreviations(abbreviationsTest);
         });
@@ -133,7 +133,7 @@ class ParserTest {
 
     @Test
     void testParseDate_shouldReturnIllegalArgumentException_whenInputFileContainsWrongDateFormat() throws IOException {
-        File startTest = new File("/home/user/java/GitLab/Task 6/task-6/startTest.log");
+        File startTest = new File("/home/user/java/GitLab/Task 6/task-6/resourcesTest/startError.log");
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             parcer.parseStartLog(startTest);
         });
@@ -143,7 +143,7 @@ class ParserTest {
 
     @Test
     void testParseTime_shouldReturnIllegalArgumentException_whenInputFileContainsWrongTimeFormat() throws IOException {
-        File endTest = new File("/home/user/java/GitLab/Task 6/task-6/endTest.log");
+        File endTest = new File("/home/user/java/GitLab/Task 6/task-6/resourcesTest/endError.log");
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             parcer.parseEndLog(endTest);
         });
