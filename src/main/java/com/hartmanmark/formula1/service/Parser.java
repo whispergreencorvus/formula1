@@ -19,15 +19,14 @@ public class Parser {
     private String name;
     private String car;
     private String abbreviation;
-    private Validator validator =  new Validator();
 
     public Map<String, String> parseStartLog(File pathToStartLog) throws FileNotFoundException {
         Scanner scannerStartLog = new Scanner(pathToStartLog);
         while (scannerStartLog.hasNextLine()) {
             String lineFromStartLog = scannerStartLog.nextLine();
-            String abbrev = validator.checkAbbreviation(lineFromStartLog.substring(0, 3));
-            validator.checkDate(lineFromStartLog.substring(3, 13));
-            String time = validator.checkTime(lineFromStartLog.substring(14, 26));
+            String abbrev = Validator.checkAbbreviation(lineFromStartLog.substring(0, 3));
+            Validator.checkDate(lineFromStartLog.substring(3, 13));
+            String time = Validator.checkTime(lineFromStartLog.substring(14, 26));
             startMap.put(abbrev, time);
         }
         scannerStartLog.close();
@@ -38,9 +37,9 @@ public class Parser {
         Scanner scannerEndLog = new Scanner(pathToEndLog);
         while (scannerEndLog.hasNextLine()) {
             String lineFromEndLog = scannerEndLog.nextLine();
-            String abbrev = validator.checkAbbreviation(lineFromEndLog.substring(0, 3));
-            validator.checkDate(lineFromEndLog.substring(3, 13));
-            String time = validator.checkTime(lineFromEndLog.substring(14, 26));
+            String abbrev = Validator.checkAbbreviation(lineFromEndLog.substring(0, 3));
+            Validator.checkDate(lineFromEndLog.substring(3, 13));
+            String time = Validator.checkTime(lineFromEndLog.substring(14, 26));
             endMap.put(abbrev, time);
         }
         scannerEndLog.close();
@@ -53,7 +52,7 @@ public class Parser {
         while (scannerAbbreviations.hasNextLine()) {
             String lineFromAbbreviations = scannerAbbreviations.nextLine();
             List<String> list = Arrays.asList(lineFromAbbreviations.split("_"));
-            validator.checkAbbreviation(list.get(0));
+            Validator.checkAbbreviation(list.get(0));
             racer.setAbbreviation(list.get(0));
             racer.setName(list.get(1));
             racer.setCar(list.get(2));
