@@ -2,7 +2,7 @@ package com.hartmanmark.formula1.service;
 
 public class Validator {
 
-    public String checkAbbreviation(String str) {
+    public static String checkAbbreviation(String str) {
         if (str.matches("[A-Z]+")) {
             return str;
         } else {
@@ -11,7 +11,7 @@ public class Validator {
         }
     }
 
-    public String checkDate(String data) {
+    public static String checkDate(String data) {
         String datePattern = "^((19|2[0-9])[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$";
         if (data.matches(datePattern)) {
             return data;
@@ -21,7 +21,7 @@ public class Validator {
         }
     }
 
-    public String checkTime(String time) {
+    public static String checkTime(String time) {
         String datePattern = "(?:[0-9]{2}:[0-9]{2}:[0-9]{2})?(?:[.][0-9]{3})?";
         if (time.matches(datePattern)) {
             return time;
